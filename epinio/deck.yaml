@@ -24,6 +24,7 @@ cluster:
 decks:
   - name: epinio
     namespace: default
+    notes: "Please find the Epinio UI at: 127.0.0.1.nip.io:8443/ with username 'admin' and password 'password'"
     sources:
       - type: file
         ref: https://github.com/jetstack/cert-manager/releases/download/v1.8.0/cert-manager.crds.yaml
