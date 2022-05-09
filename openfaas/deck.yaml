@@ -28,7 +28,7 @@ decks:
   - name: openfaas
     namespace: openfaas
     notes: |
-      After some while you can open the OpenFaaS management UI at: http://gateway.127.0.0.1.nip.io:8080/ui
+      After some while you can open the OpenFaaS management UI at: http://gateway.127.0.0.1.nip.io:8080/ui/
       Run the following command in your terminal to retrieve the basic auth credentials for login: 
       
       PASSWORD=$(kubectl -n openfaas get secret basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode) && \
