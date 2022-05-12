@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacecrafts
+  labels:
+    app: spacecrafts
+spec:
+  selector:
+    matchLabels:
+      app: spacecrafts
+  template:
+    metadata:
+      labels:
+        app: spacecrafts
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      containers:
+        - name: spacecrafts
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "quay.io/django-hurricane/spacecrafts-demo:latest"
+          imagePullPolicy: Always
+          command: ["/bin/sh","-c"]
+          args: ["python manage.py serve
+                  --command 'migrate'
+                  --command 'collectstatic --no-input'
+                  --port 8080
+                  --probe-port 9410
+                  --static
+                  --media
+                 "]
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /alive
+              port: 9410
+            periodSeconds: 10
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 9410
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /startup
+              port: 9410
+          env:
+            - name: DATABASE_NAME
+              value: django
+            - name: DATABASE_HOST
+              value: django-psql-cluster
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: django.django-psql-cluster.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django.django-psql-cluster.credentials.postgresql.acid.zalan.do
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: spacecrafts-configmap

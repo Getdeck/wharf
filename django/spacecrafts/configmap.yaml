@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spacecrafts-configmap
+data:
+  DJANGO_STATIC_ROOT: /var/django/static/
+  DJANGO_MEDIA_ROOT: /var/django/media/
+  DJANGO_SECRET_KEY: set-me

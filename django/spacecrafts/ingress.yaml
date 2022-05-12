@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spacecrafts-ingress
+  annotations:
+spec:
+  rules:
+    - host: spacecrafts.127.0.0.1.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: spacecrafts
+                port:
+                  number: 8080
