@@ -56,7 +56,7 @@ decks:
                 - createdb
               django_user: [ ]  # role for application foo
             databases:
-              webshop: django  # dbname: owner
+              django: django  # dbname: owner
             preparedDatabases:
               bar: { }
             postgresql:
