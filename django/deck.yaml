@@ -70,5 +70,6 @@ decks:
         ref: https://raw.githubusercontent.com/Getdeck/wharf/main/django/spacecrafts/deployment.yaml
       - type: file
         ref: https://raw.githubusercontent.com/Getdeck/wharf/main/django/spacecrafts/ingress.yaml
-
+      - type: file
+        ref: https://raw.githubusercontent.com/Getdeck/wharf/main/django/spacecrafts/job.yaml
 

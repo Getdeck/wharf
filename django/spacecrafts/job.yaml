@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spacecrafts-load-fixtures
+spec:
+  template:
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      containers:
+        - name: spacecrafts
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "quay.io/django-hurricane/spacecrafts-demo:latest"
+          imagePullPolicy: Always
+          command: [ "/bin/sh","-c" ]
+          args: [ "python manage.py loaddata apps/components/fixtures/components.json" ]
+          env:
+            - name: DATABASE_NAME
+              value: django
+            - name: DATABASE_HOST
+              value: django-psql-cluster
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: django.django-psql-cluster.credentials.postgresql.acid.zalan.do
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django.django-psql-cluster.credentials.postgresql.acid.zalan.do
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: spacecrafts-configmap
+      restartPolicy: OnFailure
+  backoffLimit: 4
