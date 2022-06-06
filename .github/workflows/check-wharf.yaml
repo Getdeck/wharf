@@ -1,0 +1,24 @@
+name: Spin up all Deckfiles from the Wharf and confirm it working
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-wharf:
+    strategy:
+      matrix:
+        Deckfile:
+          - https://raw.githubusercontent.com/Getdeck/wharf/main/openfaas/deck.yaml
+          - https://raw.githubusercontent.com/Getdeck/wharf/main/epinio/deck.yaml
+          - https://raw.githubusercontent.com/Getdeck/wharf/main/django/deck.yaml
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: Getdeck/getdeck-action@main
+      name: Create Infrastructure from Deckfile
+      with:
+        deck-file-path: ${{ matrix.Deckfile }}
+        timeout: 180
