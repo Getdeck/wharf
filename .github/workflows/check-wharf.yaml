@@ -1,6 +1,9 @@
 name: Spin up all Deckfiles from the Wharf and confirm it working
 
 on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 15 * * 1"
   push:
     branches: [ main ]
   pull_request:
