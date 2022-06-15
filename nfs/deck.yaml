@@ -40,5 +40,5 @@ decks:
       - type: file
         ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/nfs-claim.yaml
       - type: file
-        ref: https://raw.githubusercontent.com/Getdeck/wharf/nfs/nfs/manifests/pods.yaml
+        ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/pods.yaml
 
