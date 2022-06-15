@@ -3,13 +3,13 @@ version: "1"
 cluster:
   provider: k3d
   minVersion: 4.0.0
-  name: django
+  name: nfs-storage
   nativeConfig:
     apiVersion: k3d.io/v1alpha2
     kind: Simple
     servers: 1
     agents: 1
-    image: rancher/k3s:v1.22.9-k3s1
+    image: rancher/k3s:v1.23.7-k3s1
     ports:
       - port: 8080:80
         nodeFilters:
@@ -23,8 +23,10 @@ decks:
     namespace: default
     notes: |
 
-      This deck installs an nfs provisioner as a statefulset and provides a pvc with name nfs with access mode ReadWriteMany.
-      Additionally two pods are deployed which both mount the volume. You can verify it working by using the directory /var/nfs on both pods.
+      This Deck installs an NFS provisioner as a StatefulSet and provides a PersistentVolumeClaim with name 'nfs' with access mode ReadWriteMany (RWX).
+      Additionally two Pods are deployed which both mount this volume. You can verify it working by storing files in the directory /var/nfs on both Pods.
+      You can now add your own workload and request either that particular volume or create a new one.
+      See: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/nfs-claim.yaml
     sources:
       # The workloads for the nfs provisioner and pvc
       - type: file
@@ -36,7 +38,7 @@ decks:
       - type: file
         ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/class.yaml
       - type: file
-        ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/claim.yaml
+        ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/nfs-claim.yaml
       - type: file
-        ref: https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/manifests/pods.yaml
+        ref: https://raw.githubusercontent.com/Getdeck/wharf/nfs/nfs/manifests/pods.yaml
 

@@ -17,6 +17,7 @@ jobs:
           - https://raw.githubusercontent.com/Getdeck/wharf/main/openfaas/deck.yaml
           - https://raw.githubusercontent.com/Getdeck/wharf/main/epinio/deck.yaml
           - https://raw.githubusercontent.com/Getdeck/wharf/main/django/deck.yaml
+          - https://raw.githubusercontent.com/Getdeck/wharf/main/nfs/deck.yaml
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
