@@ -26,7 +26,7 @@ decks:
     namespace: default
     notes: |
       
-      Welcome to the django-hurricane (go to https://django-hurricane.io) spacecrafts demo application. Once the app is read you can:
+      Welcome to the django-hurricane (go to https://django-hurricane.io) spacecrafts demo application. Once the app is ready you can:
       
       - check out the GraphQL editor at: http://spacecrafts.127.0.0.1.nip.io:8080/graphql 
         type in a simple Graphql query to get started
